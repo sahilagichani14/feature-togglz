@@ -1,0 +1,12 @@
+togglz:
+  features:
+    ADMIN_ROLE_APPLIED:
+      enabled: true
+#  features-file: 'file://Users/Desktop/feature.properties'
+  console:
+    secured: false
+management:
+  endpoints:
+    web:
+      exposure:
+        include: 'togglz'

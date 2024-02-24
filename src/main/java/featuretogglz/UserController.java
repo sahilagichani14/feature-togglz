@@ -3,19 +3,38 @@ package featuretogglz;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.togglz.core.Feature;
+import org.togglz.core.manager.FeatureManager;
+import org.togglz.core.util.NamedFeature;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
 @RestController
 public class UserController {
+    @Autowired
+    private FeatureManager featureManager;
+
+    //public static final Feature ADMIN_ROLE_APPLIED = new NamedFeature("ADMIN_ROLE_APPLIED");
 
     @Autowired
     private UserService userService;
 
     @GetMapping("/users")
     public List<User> getAllUsers(){
-        return userService.getAllUsers();
+        List<User> adminUserList = new ArrayList<>();
+        if(featureManager.isActive(MyFeatures.ADMIN_ROLE_APPLIED)){
+            adminUserList = this.specialFeatureForAdminRole();
+            return adminUserList;
+        } else {
+            return userService.getAllUsers();
+        }
+    }
+
+    @GetMapping("/disablefeature")
+    public void callToDisableFeature() throws IOException, InterruptedException {
+        DisableFeature.callToDisableFeature("ADMIN_ROLE_APPLIED");
     }
 
     private List<User> specialFeatureForAdminRole(){
