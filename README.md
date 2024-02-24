@@ -1,5 +1,6 @@
 # feature-togglz
 use feature togglz in spring boot
+http://localhost:8080/users - if feature on then only admin data visible, else all users
 
 http://localhost:8080/actuator/health
 http://localhost:8080/togglz-console/index
@@ -24,5 +25,4 @@ http://localhost:8080/actuator/togglz
 
 ### Reference: But not updated
 https://www.togglz.org/documentation/spring-boot-starter
-
 
