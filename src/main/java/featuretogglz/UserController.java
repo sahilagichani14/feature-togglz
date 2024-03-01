@@ -9,7 +9,9 @@ import org.togglz.core.util.NamedFeature;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 public class UserController {
@@ -35,6 +37,23 @@ public class UserController {
     @GetMapping("/disablefeature")
     public void callToDisableFeature() throws IOException, InterruptedException {
         DisableFeature.callToDisableFeature("ADMIN_ROLE_APPLIED");
+    }
+
+    @GetMapping("/getAllUserMoods")
+    public Map<String, String> getAllUsersMoods(){
+        Map<String, String> map = new HashMap<>();
+        if(featureManager.isActive(MyFeatures.MAKE_HAPPY_MOOD)){
+            userService.getAllUsers()
+                    .forEach(user -> {
+                        map.put(user.getUsername(), "Balle Balle, Shava Shava!!!!");
+                    });
+        } else {
+            userService.getAllUsers()
+                    .forEach(user -> {
+                        map.put(user.getUsername(), user.getUserMood());
+                    });
+        }
+        return map;
     }
 
     private List<User> specialFeatureForAdminRole(){

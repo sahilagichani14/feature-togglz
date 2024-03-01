@@ -12,12 +12,14 @@ public class User {
     private String username;
     private String password;
     private Role userrole;
+    private String userMood;
 
-    public User(int userId, String username, String password, Role userrole) {
+    public User(int userId, String username, String password, Role userrole, String userMood) {
         this.userId = userId;
         this.username = username;
         this.password = password;
         this.userrole = userrole;
+        this.userMood = userMood;
     }
 
     public int getUserId() {
@@ -50,5 +52,13 @@ public class User {
 
     public void setUserrole(Role userrole) {
         this.userrole = userrole;
+    }
+
+    public String getUserMood() {
+        return userMood;
+    }
+
+    public void setUserMood(String userMood) {
+        this.userMood = userMood;
     }
 }
